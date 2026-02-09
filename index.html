@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0069)file:///Users/macbookpro/Downloads/deepseek_html_20260206_237583.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Perolehan Produk - Store Name</title>
     <style>
@@ -160,6 +160,13 @@
             outline: none;
         }
         
+        .unit {
+            margin-left: 8px;
+            color: #7f8c8d;
+            font-size: 14px;
+            min-width: 30px;
+        }
+        
         .submit-section {
             background-color: #f8f9fa;
             border-radius: 10px;
@@ -247,6 +254,15 @@
             cursor: not-allowed;
         }
         
+        .btn-refresh {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-refresh:hover {
+            background-color: #2980b9;
+        }
+        
         .footer {
             text-align: center;
             margin-top: 30px;
@@ -326,7 +342,7 @@
             <div class="store-info">
                 <div>
                     <label for="storeName">STORE NAME:</label>
-                    <input type="text" id="storeName" class="store-name-input" placeholder="Enter store name" required="">
+                    <input type="text" id="storeName" class="store-name-input" placeholder="Enter store name" required>
                 </div>
                 <div class="date" id="currentDate">DATE: February 6, 2026</div>
             </div>
@@ -342,126 +358,9 @@
                     Device Selection 
                     <span id="deviceCount" class="product-count">3 items with quantity</span>
                 </h2>
-                <div class="device-list" id="deviceList"><div class="device-item" id="device-ncig-pro-embered">
-                    <label class="device-label" for="qty-ncig-pro-embered">Ncig pro Embered</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig pro Embered">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-pro-embered" placeholder="0" min="0" max="99" data-device="Ncig pro Embered">
-                        <button class="quantity-btn plus" data-device="Ncig pro Embered">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-pro-pine">
-                    <label class="device-label" for="qty-ncig-pro-pine">Ncig pro Pine</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig pro Pine">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-pro-pine" placeholder="0" min="0" max="99" data-device="Ncig pro Pine">
-                        <button class="quantity-btn plus" data-device="Ncig pro Pine">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-pro-glacier">
-                    <label class="device-label" for="qty-ncig-pro-glacier">Ncig Pro Glacier</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Pro Glacier">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-pro-glacier" placeholder="0" min="0" max="99" data-device="Ncig Pro Glacier">
-                        <button class="quantity-btn plus" data-device="Ncig Pro Glacier">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-pro-midnight">
-                    <label class="device-label" for="qty-ncig-pro-midnight">Ncig Pro Midnight</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Pro Midnight">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-pro-midnight" placeholder="0" min="0" max="99" data-device="Ncig Pro Midnight">
-                        <button class="quantity-btn plus" data-device="Ncig Pro Midnight">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-pro-sangria">
-                    <label class="device-label" for="qty-ncig-pro-sangria">Ncig Pro Sangria</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Pro Sangria">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-pro-sangria" placeholder="0" min="0" max="99" data-device="Ncig Pro Sangria">
-                        <button class="quantity-btn plus" data-device="Ncig Pro Sangria">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-pro-kendal">
-                    <label class="device-label" for="qty-ncig-pro-kendal">Ncig Pro Kendal</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Pro Kendal">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-pro-kendal" placeholder="0" min="0" max="99" data-device="Ncig Pro Kendal">
-                        <button class="quantity-btn plus" data-device="Ncig Pro Kendal">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-pro-tifanny">
-                    <label class="device-label" for="qty-ncig-pro-tifanny">Ncig Pro Tifanny</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Pro Tifanny">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-pro-tifanny" placeholder="0" min="0" max="99" data-device="Ncig Pro Tifanny">
-                        <button class="quantity-btn plus" data-device="Ncig Pro Tifanny">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-pro-sage">
-                    <label class="device-label" for="qty-ncig-pro-sage">Ncig Pro Sage</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Pro Sage">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-pro-sage" placeholder="0" min="0" max="99" data-device="Ncig Pro Sage">
-                        <button class="quantity-btn plus" data-device="Ncig Pro Sage">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-one-obsidian">
-                    <label class="device-label" for="qty-ncig-one-obsidian">Ncig One Obsidian</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig One Obsidian">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-one-obsidian" placeholder="0" min="0" max="99" data-device="Ncig One Obsidian">
-                        <button class="quantity-btn plus" data-device="Ncig One Obsidian">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-one-pacific">
-                    <label class="device-label" for="qty-ncig-one-pacific">Ncig One Pacific</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig One Pacific">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-one-pacific" placeholder="0" min="0" max="99" data-device="Ncig One Pacific">
-                        <button class="quantity-btn plus" data-device="Ncig One Pacific">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-one-scarlet">
-                    <label class="device-label" for="qty-ncig-one-scarlet">Ncig One Scarlet</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig One Scarlet">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-one-scarlet" placeholder="0" min="0" max="99" data-device="Ncig One Scarlet">
-                        <button class="quantity-btn plus" data-device="Ncig One Scarlet">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-cube-ocean">
-                    <label class="device-label" for="qty-ncig-cube-ocean">Ncig Cube Ocean</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Cube Ocean">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-cube-ocean" placeholder="0" min="0" max="99" data-device="Ncig Cube Ocean">
-                        <button class="quantity-btn plus" data-device="Ncig Cube Ocean">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-cube-ash">
-                    <label class="device-label" for="qty-ncig-cube-ash">Ncig Cube Ash</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Cube Ash">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-cube-ash" placeholder="0" min="0" max="99" data-device="Ncig Cube Ash">
-                        <button class="quantity-btn plus" data-device="Ncig Cube Ash">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-cube-lava">
-                    <label class="device-label" for="qty-ncig-cube-lava">Ncig Cube Lava</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Cube Lava">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-cube-lava" placeholder="0" min="0" max="99" data-device="Ncig Cube Lava">
-                        <button class="quantity-btn plus" data-device="Ncig Cube Lava">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-cube-sky">
-                    <label class="device-label" for="qty-ncig-cube-sky">Ncig Cube Sky</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Cube Sky">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-cube-sky" placeholder="0" min="0" max="99" data-device="Ncig Cube Sky">
-                        <button class="quantity-btn plus" data-device="Ncig Cube Sky">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-cube-neon">
-                    <label class="device-label" for="qty-ncig-cube-neon">Ncig Cube Neon</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Cube Neon">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-cube-neon" placeholder="0" min="0" max="99" data-device="Ncig Cube Neon">
-                        <button class="quantity-btn plus" data-device="Ncig Cube Neon">+</button>
-                    </div>
-                </div><div class="device-item" id="device-ncig-cube-slate">
-                    <label class="device-label" for="qty-ncig-cube-slate">Ncig Cube Slate</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="Ncig Cube Slate">-</button>
-                        <input type="number" class="quantity-input" id="qty-ncig-cube-slate" placeholder="0" min="0" max="99" data-device="Ncig Cube Slate">
-                        <button class="quantity-btn plus" data-device="Ncig Cube Slate">+</button>
-                    </div>
-                </div></div>
+                <div class="device-list" id="deviceList">
+                    <!-- Device items will be populated by JavaScript -->
+                </div>
             </div>
             
             <div class="npod-selection">
@@ -469,133 +368,9 @@
                     NPOD Selection 
                     <span id="npodCount" class="product-count">6 items with quantity</span>
                 </h2>
-                <div class="npod-list" id="npodList"><div class="npod-item" id="npod-tobacco-red">
-                    <label class="npod-label" for="npod-qty-tobacco-red">TOBACCO (RED)</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="TOBACCO (RED)">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-tobacco-red" placeholder="0" min="0" max="99" data-npod="TOBACCO (RED)">
-                        <button class="quantity-btn plus" data-npod="TOBACCO (RED)">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-banana-vanilla">
-                    <label class="npod-label" for="npod-qty-banana-vanilla">Banana Vanilla</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="Banana Vanilla">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-banana-vanilla" placeholder="0" min="0" max="99" data-npod="Banana Vanilla">
-                        <button class="quantity-btn plus" data-npod="Banana Vanilla">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-tobacco-white">
-                    <label class="npod-label" for="npod-qty-tobacco-white">TOBACCO (WHITE)</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="TOBACCO (WHITE)">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-tobacco-white" placeholder="0" min="0" max="99" data-npod="TOBACCO (WHITE)">
-                        <button class="quantity-btn plus" data-npod="TOBACCO (WHITE)">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-pecan">
-                    <label class="npod-label" for="npod-qty-pecan">PECAN</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="PECAN">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-pecan" placeholder="0" min="0" max="99" data-npod="PECAN">
-                        <button class="quantity-btn plus" data-npod="PECAN">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-berry-toast">
-                    <label class="npod-label" for="npod-qty-berry-toast">BERRY TOAST</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="BERRY TOAST">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-berry-toast" placeholder="0" min="0" max="99" data-npod="BERRY TOAST">
-                        <button class="quantity-btn plus" data-npod="BERRY TOAST">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-coffee">
-                    <label class="npod-label" for="npod-qty-coffee">Coffee</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="Coffee">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-coffee" placeholder="0" min="0" max="99" data-npod="Coffee">
-                        <button class="quantity-btn plus" data-npod="Coffee">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-coffee">
-                    <label class="npod-label" for="npod-qty-coffee">COFFEE</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="COFFEE">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-coffee" placeholder="0" min="0" max="99" data-npod="COFFEE">
-                        <button class="quantity-btn plus" data-npod="COFFEE">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-grape">
-                    <label class="npod-label" for="npod-qty-grape">GRAPE</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="GRAPE">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-grape" placeholder="0" min="0" max="99" data-npod="GRAPE">
-                        <button class="quantity-btn plus" data-npod="GRAPE">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-guava">
-                    <label class="npod-label" for="npod-qty-guava">GUAVA</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="GUAVA">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-guava" placeholder="0" min="0" max="99" data-npod="GUAVA">
-                        <button class="quantity-btn plus" data-npod="GUAVA">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-lemon">
-                    <label class="npod-label" for="npod-qty-lemon">LEMON</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="LEMON">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-lemon" placeholder="0" min="0" max="99" data-npod="LEMON">
-                        <button class="quantity-btn plus" data-npod="LEMON">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-keladi">
-                    <label class="npod-label" for="npod-qty-keladi">KELADI</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="KELADI">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-keladi" placeholder="0" min="0" max="99" data-npod="KELADI">
-                        <button class="quantity-btn plus" data-npod="KELADI">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-mango">
-                    <label class="npod-label" for="npod-qty-mango">MANGO</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="MANGO">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-mango" placeholder="0" min="0" max="99" data-npod="MANGO">
-                        <button class="quantity-btn plus" data-npod="MANGO">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-berry">
-                    <label class="npod-label" for="npod-qty-berry">BERRY</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="BERRY">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-berry" placeholder="0" min="0" max="99" data-npod="BERRY">
-                        <button class="quantity-btn plus" data-npod="BERRY">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-mint">
-                    <label class="npod-label" for="npod-qty-mint">MINT</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="MINT">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-mint" placeholder="0" min="0" max="99" data-npod="MINT">
-                        <button class="quantity-btn plus" data-npod="MINT">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-strawberry">
-                    <label class="npod-label" for="npod-qty-strawberry">STRAWBERRY</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="STRAWBERRY">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-strawberry" placeholder="0" min="0" max="99" data-npod="STRAWBERRY">
-                        <button class="quantity-btn plus" data-npod="STRAWBERRY">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-tea">
-                    <label class="npod-label" for="npod-qty-tea">TEA</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="TEA">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-tea" placeholder="0" min="0" max="99" data-npod="TEA">
-                        <button class="quantity-btn plus" data-npod="TEA">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-vanilla">
-                    <label class="npod-label" for="npod-qty-vanilla">VANILLA</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="VANILLA">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-vanilla" placeholder="0" min="0" max="99" data-npod="VANILLA">
-                        <button class="quantity-btn plus" data-npod="VANILLA">+</button>
-                    </div>
-                </div><div class="npod-item" id="npod-watermelon-mint">
-                    <label class="npod-label" for="npod-qty-watermelon-mint">WATERMELON MINT</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="WATERMELON MINT">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-watermelon-mint" placeholder="0" min="0" max="99" data-npod="WATERMELON MINT">
-                        <button class="quantity-btn plus" data-npod="WATERMELON MINT">+</button>
-                    </div>
-                </div></div>
+                <div class="npod-list" id="npodList">
+                    <!-- NPOD items will be populated by JavaScript -->
+                </div>
             </div>
         </div>
         
@@ -624,6 +399,7 @@
             <div class="action-buttons">
                 <button class="btn btn-reset" id="resetBtn">Clear All</button>
                 <button class="btn btn-submit" id="submitBtn">Submit Order</button>
+                <button class="btn btn-refresh" id="refreshBtn" style="display: none;">Start New Order</button>
             </div>
             
             <p class="submit-instructions" style="margin-top: 25px; font-size: 14px;">
@@ -692,6 +468,10 @@
         let selectedDevices = {};
         let selectedNpods = {};
         
+        // Submission flags
+        let isSubmitting = false;
+        let hasSubmitted = false;
+        
         // Initialize the application
         function init() {
             setCurrentDate();
@@ -725,6 +505,7 @@
                         <input type="number" class="quantity-input" id="qty-${deviceId}" 
                                placeholder="0" min="0" max="99" data-device="${device}">
                         <button class="quantity-btn plus" data-device="${device}">+</button>
+                        <span class="unit">pcs</span>
                     </div>
                 `;
                 
@@ -751,6 +532,7 @@
                         <input type="number" class="quantity-input" id="npod-qty-${npodId}" 
                                placeholder="0" min="0" max="99" data-npod="${npod}">
                         <button class="quantity-btn plus" data-npod="${npod}">+</button>
+                        <span class="unit">pcs</span>
                     </div>
                 `;
                 
@@ -829,6 +611,13 @@
                 submitOrder();
             });
             
+            // Refresh button
+            document.getElementById('refreshBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to start a new order? The current form will be reset.')) {
+                    location.reload();
+                }
+            });
+            
             // Store name input
             document.getElementById('storeName').addEventListener('input', function() {
                 updateSubmitButton();
@@ -884,7 +673,7 @@
             const deviceCount = Object.keys(selectedDevices).length;
             const npodCount = Object.keys(selectedNpods).length;
             
-            if ((deviceCount > 0 || npodCount > 0) && storeName !== '') {
+            if ((deviceCount > 0 || npodCount > 0) && storeName !== '' && !hasSubmitted) {
                 submitBtn.disabled = false;
             } else {
                 submitBtn.disabled = true;
@@ -896,17 +685,45 @@
             const messageDiv = document.getElementById('message');
             messageDiv.textContent = text;
             messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
             
-            // Auto hide success messages after 5 seconds
+            // Auto hide success messages after 8 seconds
             if (type === 'success') {
                 setTimeout(() => {
                     messageDiv.style.display = 'none';
-                }, 5000);
+                }, 8000);
             }
         }
         
         // Reset all selections
         function resetAll() {
+            // Reset submission flags
+            isSubmitting = false;
+            hasSubmitted = false;
+            
+            // Reset submit button
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submit Order';
+            submitBtn.style.backgroundColor = '#2ecc71';
+            
+            // Hide refresh button
+            document.getElementById('refreshBtn').style.display = 'none';
+            
+            // Enable all inputs and buttons
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.disabled = false;
+            });
+            
+            document.querySelectorAll('.quantity-btn').forEach(btn => {
+                btn.disabled = false;
+                btn.style.backgroundColor = '#3498db';
+                btn.style.cursor = 'pointer';
+            });
+            
+            // Enable store name input
+            document.getElementById('storeName').disabled = false;
+            
             // Clear selections
             selectedDevices = {};
             selectedNpods = {};
@@ -929,11 +746,23 @@
             // Hide any message
             document.getElementById('message').style.display = 'none';
             
-            showMessage('All quantities have been cleared.', 'success');
+            showMessage('All quantities have been cleared. You can start a new order.', 'success');
         }
         
         // Submit order to Google Sheets
         function submitOrder() {
+            // Cek jika sudah submit
+            if (hasSubmitted) {
+                showMessage('You have already submitted this order. Please click "Start New Order" to begin a new order.', 'error');
+                return;
+            }
+            
+            // Cek jika sedang submit
+            if (isSubmitting) {
+                showMessage('Your order is being submitted. Please wait...', 'error');
+                return;
+            }
+            
             const storeName = document.getElementById('storeName').value.trim();
             const currentDate = document.getElementById('currentDate').textContent.replace('DATE: ', '');
             
@@ -946,6 +775,14 @@
                 showMessage('Please enter at least one quantity before submitting.', 'error');
                 return;
             }
+            
+            // Confirmation dialog
+            if (!confirm(`Are you sure you want to submit this order for ${storeName}?\n\nDevices with quantity: ${Object.keys(selectedDevices).length}\nNPODs with quantity: ${Object.keys(selectedNpods).length}`)) {
+                return;
+            }
+            
+            // Set submitting flag
+            isSubmitting = true;
             
             // Disable submit button and show loading
             const submitBtn = document.getElementById('submitBtn');
@@ -962,26 +799,49 @@
                 timestamp: new Date().toISOString()
             };
             
-            // In a real implementation, you would send this data to Google Sheets
+            // Simulate submission to Google Sheets
             simulateGoogleSheetsSubmission(formData, submitBtn, originalText);
         }
         
         // Simulate submission to Google Sheets
         function simulateGoogleSheetsSubmission(formData, submitBtn, originalText) {
-            // This is a simulation - in a real implementation, you would:
-            // 1. Create a Google Apps Script web app
-            // 2. Send a POST request to the web app URL
-            // 3. The Apps Script would add the data to Google Sheets
-            
             console.log('Submitting to Google Sheets:', formData);
             
             // Simulate API call delay
             setTimeout(() => {
-                // Re-enable button
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+                // Reset submitting flag
+                isSubmitting = false;
                 
-                // Show success message
+                // Set submitted flag
+                hasSubmitted = true;
+                
+                // Re-enable button but change text
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Already Submitted';
+                submitBtn.style.backgroundColor = '#95a5a6';
+                
+                // Show refresh button
+                document.getElementById('refreshBtn').style.display = 'block';
+                
+                // Disable all quantity inputs and buttons
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.disabled = true;
+                });
+                
+                document.querySelectorAll('.quantity-btn').forEach(btn => {
+                    btn.disabled = true;
+                    btn.style.backgroundColor = '#95a5a6';
+                    btn.style.cursor = 'not-allowed';
+                });
+                
+                // Disable store name input
+                document.getElementById('storeName').disabled = true;
+                
+                // Disable reset button
+                document.getElementById('resetBtn').disabled = true;
+                document.getElementById('resetBtn').style.backgroundColor = '#95a5a6';
+                
+                // Show success message with reminder
                 const deviceCount = Object.keys(formData.devices).length;
                 const npodCount = Object.keys(formData.npods).length;
                 const totalDeviceQty = Object.values(formData.devices).reduce((sum, qty) => sum + qty, 0);
@@ -989,43 +849,20 @@
                 const totalItems = totalDeviceQty + totalNpodQty;
                 
                 showMessage(
-                    `Success! Order for ${formData.storeName} submitted. Total: ${totalItems} items (${deviceCount} devices, ${npodCount} NPODs).`,
+                    `✅ Success! Order for ${formData.storeName} submitted.\nTotal: ${totalItems} items (${deviceCount} devices, ${npodCount} NPODs).\n\nThis form has been submitted. Please click "Start New Order" to begin a new order.`,
                     'success'
                 );
                 
-                // In a real implementation, you would send data to Google Sheets like this:
-                /*
-                const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
-                
-                fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
-                    showMessage('Order submitted successfully!', 'success');
-                    
-                    // Optionally reset form after successful submission
-                    // resetAll();
-                })
-                .catch(error => {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
-                    showMessage('Error submitting order. Please try again.', 'error');
-                    console.error('Error:', error);
-                });
-                */
+                // Clear saved data after successful submission
+                localStorage.removeItem('storeSelectionData');
                 
             }, 2000);
         }
         
         // Save data to localStorage
         function saveData() {
+            if (hasSubmitted) return;
+            
             const storeName = document.getElementById('storeName').value;
             
             const saveData = {
@@ -1056,6 +893,8 @@
         
         // Load saved data from localStorage
         function loadSavedData() {
+            if (hasSubmitted) return;
+            
             const savedData = localStorage.getItem('storeSelectionData');
             
             if (savedData) {
@@ -1111,7 +950,5 @@
         // Initialize the app when DOM is loaded
         document.addEventListener('DOMContentLoaded', init);
     </script>
-
-
-
-</body></html>
+</body>
+</html>
