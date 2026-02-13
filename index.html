@@ -818,10 +818,27 @@ function submitOrder() {
     const storeName = document.getElementById('storeName').value.trim();
     if (!storeName) return alert("Enter store name first");
 
+    const totalDeviceQty = Object.values(selectedDevices)
+        .reduce((a,b)=>a+b,0);
+
+    const totalNpodQty = Object.values(selectedNpods)
+        .reduce((a,b)=>a+b,0);
+
+    const grandTotal = totalDeviceQty + totalNpodQty;
+
+    if (grandTotal === 0) return alert("Please enter quantity first");
+
+    const orderId = "ORD-" + Date.now();
+
     const formData = {
+        orderId: orderId,
         storeName: storeName,
         deviceSelection: formatItems(selectedDevices),
-        npodSelection: formatItems(selectedNpods)
+        npodSelection: formatItems(selectedNpods),
+        totalDeviceQty: totalDeviceQty,
+        totalNpodQty: totalNpodQty,
+        grandTotal: grandTotal
+        
     };
 
     isSubmitting = true;
