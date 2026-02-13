@@ -1091,9 +1091,9 @@
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            storeName: formData.storeName,
-            deviceSelection: JSON.stringify(formData.devices),
-            npodSelection: JSON.stringify(formData.npods)
+    storeName: formData.storeName,
+    deviceSelection: formatItems(formData.devices),
+    npodSelection: formatItems(formData.npods)
         })
     })
     .then(() => {
@@ -1134,7 +1134,7 @@
     });
 }
 
-        
+
         // Save data to localStorage
         function saveData() {
             if (hasSubmitted) return;
