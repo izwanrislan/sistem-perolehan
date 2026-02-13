@@ -1079,64 +1079,61 @@
             };
             
             // Simulate submission to Google Sheets
-            simulateGoogleSheetsSubmission(formData, submitBtn, originalText);
+            sendToGoogleSheets(formData, submitBtn, originalText);
         }
         
-        // Simulate submission to Google Sheets
-        function simulateGoogleSheetsSubmission(formData, submitBtn, originalText) {
-            console.log('Submitting to Google Sheets:', formData);
-            
-            // Simulate API call delay
-            setTimeout(() => {
-                // Reset submitting flag
-                isSubmitting = false;
-                
-                // Set submitted flag
-                hasSubmitted = true;
-                
-                // Re-enable button but change text
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Already Submitted';
-                submitBtn.style.background = 'linear-gradient(145deg, #95a5a6, #7f8c8d)';
-                
-                // Show refresh button
-                document.getElementById('refreshBtn').style.display = 'block';
-                
-                // Disable all quantity inputs and buttons
-                document.querySelectorAll('.quantity-input').forEach(input => {
-                    input.disabled = true;
-                });
-                
-                document.querySelectorAll('.quantity-btn').forEach(btn => {
-                    btn.disabled = true;
-                    btn.style.background = 'linear-gradient(145deg, #95a5a6, #7f8c8d)';
-                    btn.style.cursor = 'not-allowed';
-                });
-                
-                // Disable store name input
-                document.getElementById('storeName').disabled = true;
-                
-                // Disable reset button
-                document.getElementById('resetBtn').disabled = true;
-                document.getElementById('resetBtn').style.background = 'linear-gradient(145deg, #95a5a6, #7f8c8d)';
-                
-                // Show success message with reminder
-                const deviceCount = Object.keys(formData.devices).length;
-                const npodCount = Object.keys(formData.npods).length;
-                const totalDeviceQty = Object.values(formData.devices).reduce((sum, qty) => sum + qty, 0);
-                const totalNpodQty = Object.values(formData.npods).reduce((sum, qty) => sum + qty, 0);
-                const totalItems = totalDeviceQty + totalNpodQty;
-                
-                showMessage(
-                    `✅ Success! Order for ${formData.storeName} submitted.\nTotal: ${totalItems} items (${deviceCount} devices, ${npodCount} NPODs).\n\nThis form has been submitted. Please click "Start New Order" to begin a new order.`,
-                    'success'
-                );
-                
-                // Clear saved data after successful submission
-                localStorage.removeItem('storeSelectionData');
-                
-            }, 2000);
-        }
+       function sendToGoogleSheets(formData, submitBtn, originalText) {
+
+    fetch("https://script.google.com/macros/s/AKfycbzZ5nJsFguVKW7xHMC5SGhlPK97iwdD0FYjc5e489e3hot5TtYfE0NgClYHo5nSmpmSRg/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            storeName: formData.storeName,
+            deviceSelection: JSON.stringify(formData.devices),
+            npodSelection: JSON.stringify(formData.npods)
+        })
+    })
+    .then(() => {
+
+        isSubmitting = false;
+        hasSubmitted = true;
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Already Submitted';
+        submitBtn.style.background = 'linear-gradient(145deg, #95a5a6, #7f8c8d)';
+
+        document.getElementById('refreshBtn').style.display = 'block';
+
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.disabled = true;
+        });
+
+        document.querySelectorAll('.quantity-btn').forEach(btn => {
+            btn.disabled = true;
+        });
+
+        document.getElementById('storeName').disabled = true;
+
+        showMessage(
+            `Success! Order for ${formData.storeName} submitted.`,
+            'success'
+        );
+
+        localStorage.removeItem('storeSelectionData');
+
+    })
+    .catch(error => {
+        isSubmitting = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        showMessage('Error submitting order.', 'error');
+        console.error(error);
+    });
+}
+
         
         // Save data to localStorage
         function saveData() {
