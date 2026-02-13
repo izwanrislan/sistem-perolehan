@@ -1091,48 +1091,30 @@
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-    storeName: formData.storeName,
-    deviceSelection: formatItems(formData.devices),
-    npodSelection: formatItems(formData.npods)
+            storeName: formData.storeName,
+            deviceSelection: formatItems(formData.devices),
+            npodSelection: formatItems(formData.npods)
         })
     })
     .then(() => {
-
         isSubmitting = false;
         hasSubmitted = true;
-
         submitBtn.disabled = false;
         submitBtn.textContent = 'Already Submitted';
-        submitBtn.style.background = 'linear-gradient(145deg, #95a5a6, #7f8c8d)';
-
-        document.getElementById('refreshBtn').style.display = 'block';
-
-        document.querySelectorAll('.quantity-input').forEach(input => {
-            input.disabled = true;
-        });
-
-        document.querySelectorAll('.quantity-btn').forEach(btn => {
-            btn.disabled = true;
-        });
-
-        document.getElementById('storeName').disabled = true;
-
-        showMessage(
-            `Success! Order for ${formData.storeName} submitted.`,
-            'success'
-        );
-
-        localStorage.removeItem('storeSelectionData');
-
     })
     .catch(error => {
-        isSubmitting = false;
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        showMessage('Error submitting order.', 'error');
         console.error(error);
     });
 }
+
+function formatItems(items) {
+    let result = [];
+    for (let key in items) {
+        result.push(`${key} (${items[key]})`);
+    }
+    return result.join(", ");
+}
+
 
 
         // Save data to localStorage
