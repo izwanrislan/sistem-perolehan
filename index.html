@@ -691,536 +691,171 @@
         </div>
     </div>
 
-    <script>
-        // Set current date
-        function setCurrentDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const formattedDate = now.toLocaleDateString('en-US', options);
-            document.getElementById('currentDate').textContent = `DATE: ${formattedDate}`;
+<script>
+
+function setCurrentDate() {
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = now.toLocaleDateString('en-US', options);
+    document.getElementById('currentDate').textContent = `DATE: ${formattedDate}`;
+}
+
+const devices = [
+    "Ncig pro Embered","Ncig pro Pine","Ncig Pro Glacier","Ncig Pro Midnight",
+    "Ncig Pro Sangria","Ncig Pro Kendal","Ncig Pro Tifanny","Ncig Pro Sage",
+    "Ncig One Obsidian","Ncig One Pacific","Ncig One Scarlet",
+    "Ncig Cube Ocean","Ncig Cube Ash","Ncig Cube Lava",
+    "Ncig Cube Sky","Ncig Cube Neon","Ncig Cube Slate"
+];
+
+const npods = [
+    "TOBACCO (RED)","Banana Vanilla","TOBACCO (WHITE)","PECAN","BERRY TOAST",
+    "Coffee","COFFEE","GRAPE","GUAVA","LEMON","KELADI","MANGO",
+    "BERRY","MINT","STRAWBERRY","TEA","VANILLA","WATERMELON MINT"
+];
+
+let selectedDevices = {};
+let selectedNpods = {};
+let isSubmitting = false;
+let hasSubmitted = false;
+
+function init() {
+    setCurrentDate();
+    populateDeviceList();
+    populateNpodList();
+    setupEventListeners();
+    updateSummary();
+}
+
+function populateDeviceList() {
+    const list = document.getElementById('deviceList');
+    list.innerHTML = '';
+    devices.forEach(device => {
+        const id = device.replace(/\s+/g, '-').toLowerCase();
+        list.innerHTML += `
+        <div class="device-item">
+            <label class="device-label">${device}</label>
+            <div class="quantity-control">
+                <button class="quantity-btn minus" data-type="device" data-name="${device}">-</button>
+                <input type="number" class="quantity-input" id="qty-${id}" data-type="device" data-name="${device}" min="0" max="99">
+                <button class="quantity-btn plus" data-type="device" data-name="${device}">+</button>
+                <span class="unit">pcs</span>
+            </div>
+        </div>`;
+    });
+}
+
+function populateNpodList() {
+    const list = document.getElementById('npodList');
+    list.innerHTML = '';
+    npods.forEach(npod => {
+        const id = npod.replace(/\s+/g, '-').replace(/[()]/g,'').toLowerCase();
+        list.innerHTML += `
+        <div class="npod-item">
+            <label class="npod-label">${npod}</label>
+            <div class="quantity-control">
+                <button class="quantity-btn minus" data-type="npod" data-name="${npod}">-</button>
+                <input type="number" class="quantity-input" id="npod-${id}" data-type="npod" data-name="${npod}" min="0" max="99">
+                <button class="quantity-btn plus" data-type="npod" data-name="${npod}">+</button>
+                <span class="unit">pcs</span>
+            </div>
+        </div>`;
+    });
+}
+
+function setupEventListeners() {
+
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('quantity-btn')) {
+            const type = e.target.dataset.type;
+            const name = e.target.dataset.name;
+            const input = e.target.parentElement.querySelector('input');
+            let qty = parseInt(input.value) || 0;
+
+            if (e.target.classList.contains('minus') && qty > 0) qty--;
+            if (e.target.classList.contains('plus') && qty < 99) qty++;
+
+            input.value = qty;
+            updateQuantity(name, qty, type);
         }
-        
-        // Device data
-        const devices = [
-            "Ncig pro Embered",
-            "Ncig pro Pine",
-            "Ncig Pro Glacier",
-            "Ncig Pro Midnight",
-            "Ncig Pro Sangria",
-            "Ncig Pro Kendal",
-            "Ncig Pro Tifanny",
-            "Ncig Pro Sage",
-            "Ncig One Obsidian",
-            "Ncig One Pacific",
-            "Ncig One Scarlet",
-            "Ncig Cube Ocean",
-            "Ncig Cube Ash",
-            "Ncig Cube Lava",
-            "Ncig Cube Sky",
-            "Ncig Cube Neon",
-            "Ncig Cube Slate"
-        ];
-        
-        // NPOD data
-        const npods = [
-            "TOBACCO (RED)",
-            "Banana Vanilla",
-            "TOBACCO (WHITE)",
-            "PECAN",
-            "BERRY TOAST",
-            "Coffee",
-            "COFFEE",
-            "GRAPE",
-            "GUAVA",
-            "LEMON",
-            "KELADI",
-            "MANGO",
-            "BERRY",
-            "MINT",
-            "STRAWBERRY",
-            "TEA",
-            "VANILLA",
-            "WATERMELON MINT"
-        ];
-        
-        // Store selected items
-        let selectedDevices = {};
-        let selectedNpods = {};
-        
-        // Submission flags
-        let isSubmitting = false;
-        let hasSubmitted = false;
-        
-        // Initialize the application
-        function init() {
-            setCurrentDate();
-            populateDeviceList();
-            populateNpodList();
-            setupEventListeners();
-            
-            // Load saved data if exists
-            loadSavedData();
-            
-            // Update summary
-            updateSummary();
-        }
-        
-        // Populate device list
-        function populateDeviceList() {
-            const deviceList = document.getElementById('deviceList');
-            deviceList.innerHTML = '';
-            
-            devices.forEach(device => {
-                const deviceId = device.replace(/\s+/g, '-').toLowerCase();
-                
-                const deviceItem = document.createElement('div');
-                deviceItem.className = 'device-item';
-                deviceItem.id = `device-${deviceId}`;
-                
-                deviceItem.innerHTML = `
-                    <label class="device-label" for="qty-${deviceId}">${device}</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-device="${device}">-</button>
-                        <input type="number" class="quantity-input" id="qty-${deviceId}" 
-                               placeholder="0" min="0" max="99" data-device="${device}">
-                        <button class="quantity-btn plus" data-device="${device}">+</button>
-                        <span class="unit">pcs</span>
-                    </div>
-                `;
-                
-                deviceList.appendChild(deviceItem);
-            });
-        }
-        
-        // Populate NPOD list
-        function populateNpodList() {
-            const npodList = document.getElementById('npodList');
-            npodList.innerHTML = '';
-            
-            npods.forEach(npod => {
-                const npodId = npod.replace(/\s+/g, '-').replace(/[()]/g, '').toLowerCase();
-                
-                const npodItem = document.createElement('div');
-                npodItem.className = 'npod-item';
-                npodItem.id = `npod-${npodId}`;
-                
-                npodItem.innerHTML = `
-                    <label class="npod-label" for="npod-qty-${npodId}">${npod}</label>
-                    <div class="quantity-control">
-                        <button class="quantity-btn minus" data-npod="${npod}">-</button>
-                        <input type="number" class="quantity-input" id="npod-qty-${npodId}" 
-                               placeholder="0" min="0" max="99" data-npod="${npod}">
-                        <button class="quantity-btn plus" data-npod="${npod}">+</button>
-                        <span class="unit">pcs</span>
-                    </div>
-                `;
-                
-                npodList.appendChild(npodItem);
-            });
-        }
-        
-        // Setup event listeners
-        function setupEventListeners() {
-            // Quantity button clicks
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('quantity-btn')) {
-                    const isMinus = e.target.classList.contains('minus');
-                    const isPlus = e.target.classList.contains('plus');
-                    const device = e.target.getAttribute('data-device');
-                    const npod = e.target.getAttribute('data-npod');
-                    
-                    if (device) {
-                        const deviceId = device.replace(/\s+/g, '-').toLowerCase();
-                        const quantityInput = document.getElementById(`qty-${deviceId}`);
-                        let quantity = parseInt(quantityInput.value) || 0;
-                        
-                        if (isMinus && quantity > 0) {
-                            quantity--;
-                        } else if (isPlus && quantity < 99) {
-                            quantity++;
-                        }
-                        
-                        quantityInput.value = quantity;
-                        updateQuantity(device, quantity, 'device');
-                    }
-                    
-                    if (npod) {
-                        const npodId = npod.replace(/\s+/g, '-').replace(/[()]/g, '').toLowerCase();
-                        const quantityInput = document.getElementById(`npod-qty-${npodId}`);
-                        let quantity = parseInt(quantityInput.value) || 0;
-                        
-                        if (isMinus && quantity > 0) {
-                            quantity--;
-                        } else if (isPlus && quantity < 99) {
-                            quantity++;
-                        }
-                        
-                        quantityInput.value = quantity;
-                        updateQuantity(npod, quantity, 'npod');
-                    }
-                }
-            });
-            
-            // Quantity input changes
-            document.addEventListener('input', function(e) {
-                if (e.target.classList.contains('quantity-input')) {
-                    const device = e.target.getAttribute('data-device');
-                    const npod = e.target.getAttribute('data-npod');
-                    const quantity = parseInt(e.target.value) || 0;
-                    
-                    if (device) {
-                        updateQuantity(device, quantity, 'device');
-                    }
-                    
-                    if (npod) {
-                        updateQuantity(npod, quantity, 'npod');
-                    }
-                }
-            });
-            
-            // Reset button
-            document.getElementById('resetBtn').addEventListener('click', function() {
-                if (confirm('Are you sure you want to clear all quantities?')) {
-                    resetAll();
-                }
-            });
-            
-            // Submit button
-            document.getElementById('submitBtn').addEventListener('click', function() {
-                submitOrder();
-            });
-            
-            // Refresh button
-            document.getElementById('refreshBtn').addEventListener('click', function() {
-                if (confirm('Are you sure you want to start a new order? The current form will be reset.')) {
-                    location.reload();
-                }
-            });
-            
-            // Store name input
-            document.getElementById('storeName').addEventListener('input', function() {
-                updateSubmitButton();
-                saveData();
-            });
-        }
-        
-        // Update quantity in selected items
-        function updateQuantity(product, quantity, type) {
-            if (type === 'device') {
-                if (quantity > 0) {
-                    selectedDevices[product] = quantity;
-                } else {
-                    delete selectedDevices[product];
-                }
-            } else if (type === 'npod') {
-                if (quantity > 0) {
-                    selectedNpods[product] = quantity;
-                } else {
-                    delete selectedNpods[product];
-                }
-            }
-            
-            updateSummary();
-            saveData();
-        }
-        
-        // Update summary and counts
-        function updateSummary() {
-            const deviceCount = Object.keys(selectedDevices).length;
-            const npodCount = Object.keys(selectedNpods).length;
-            const totalDeviceQty = Object.values(selectedDevices).reduce((sum, qty) => sum + qty, 0);
-            const totalNpodQty = Object.values(selectedNpods).reduce((sum, qty) => sum + qty, 0);
-            const totalItems = totalDeviceQty + totalNpodQty;
-            
-            // Update counts
-            document.getElementById('deviceCount').textContent = `${deviceCount} items with quantity`;
-            document.getElementById('npodCount').textContent = `${npodCount} items with quantity`;
-            
-            // Update summary info
-            document.getElementById('summaryDeviceCount').textContent = deviceCount;
-            document.getElementById('summaryNpodCount').textContent = npodCount;
-            document.getElementById('summaryTotalItems').textContent = totalItems;
-            
-            // Update submit button
-            updateSubmitButton();
-        }
-        
-        // Update submit button state
-        function updateSubmitButton() {
-            const submitBtn = document.getElementById('submitBtn');
-            const storeName = document.getElementById('storeName').value.trim();
-            const deviceCount = Object.keys(selectedDevices).length;
-            const npodCount = Object.keys(selectedNpods).length;
-            
-            if ((deviceCount > 0 || npodCount > 0) && storeName !== '' && !hasSubmitted) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
-        }
-        
-        // Show message
-        function showMessage(text, type) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = text;
-            messageDiv.className = `message ${type}`;
-            messageDiv.style.display = 'block';
-            
-            // Auto hide success messages after 8 seconds
-            if (type === 'success') {
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, 8000);
-            }
-        }
-        
-        // Reset all selections
-        function resetAll() {
-            // Reset submission flags
-            isSubmitting = false;
-            hasSubmitted = false;
-            
-            // Reset submit button
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Submit Order';
-            submitBtn.style.background = 'linear-gradient(145deg, #2ecc71, #27ae60)';
-            
-            // Hide refresh button
-            document.getElementById('refreshBtn').style.display = 'none';
-            
-            // Enable all inputs and buttons
-            document.querySelectorAll('.quantity-input').forEach(input => {
-                input.disabled = false;
-            });
-            
-            document.querySelectorAll('.quantity-btn').forEach(btn => {
-                btn.disabled = false;
-                btn.style.background = 'linear-gradient(145deg, #3498db, #2980b9)';
-                btn.style.cursor = 'pointer';
-            });
-            
-            // Enable store name input
-            document.getElementById('storeName').disabled = false;
-            
-            // Clear selections
-            selectedDevices = {};
-            selectedNpods = {};
-            
-            // Reset all quantities to empty
-            document.querySelectorAll('.quantity-input').forEach(input => {
-                input.value = '';
-                input.placeholder = '0';
-            });
-            
-            // Clear store name
-            document.getElementById('storeName').value = '';
-            
-            // Update summary
-            updateSummary();
-            
-            // Clear saved data
-            localStorage.removeItem('storeSelectionData');
-            
-            // Hide any message
-            document.getElementById('message').style.display = 'none';
-            
-            showMessage('All quantities have been cleared. You can start a new order.', 'success');
-        }
-        
-        // Submit order to Google Sheets
-        function submitOrder() {
-            // Cek jika sudah submit
-            if (hasSubmitted) {
-                showMessage('You have already submitted this order. Please click "Start New Order" to begin a new order.', 'error');
-                return;
-            }
-            
-            // Cek jika sedang submit
-            if (isSubmitting) {
-                showMessage('Your order is being submitted. Please wait...', 'error');
-                return;
-            }
-            
-            const storeName = document.getElementById('storeName').value.trim();
-            const currentDate = document.getElementById('currentDate').textContent.replace('DATE: ', '');
-            
-            if (!storeName) {
-                showMessage('Please enter your store name before submitting.', 'error');
-                return;
-            }
-            
-            if (Object.keys(selectedDevices).length === 0 && Object.keys(selectedNpods).length === 0) {
-                showMessage('Please enter at least one quantity before submitting.', 'error');
-                return;
-            }
-            
-            // Confirmation dialog
-            if (!confirm(`Are you sure you want to submit this order for ${storeName}?\n\nDevices with quantity: ${Object.keys(selectedDevices).length}\nNPODs with quantity: ${Object.keys(selectedNpods).length}`)) {
-                return;
-            }
-            
-            // Set submitting flag
-            isSubmitting = true;
-            
-            // Disable submit button and show loading
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="loading"></span>Submitting...';
-            
-            // Prepare data for submission
-            const formData = {
-                storeName: storeName,
-                date: currentDate,
-                devices: selectedDevices,
-                npods: selectedNpods,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Simulate submission to Google Sheets
-            sendToGoogleSheets(formData, submitBtn, originalText);
-        }
-        
-       function sendToGoogleSheets(formData, submitBtn, originalText) {
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', submitOrder);
+}
+
+function updateQuantity(name, qty, type) {
+    if (type === 'device') {
+        if (qty > 0) selectedDevices[name] = qty;
+        else delete selectedDevices[name];
+    } else {
+        if (qty > 0) selectedNpods[name] = qty;
+        else delete selectedNpods[name];
+    }
+    updateSummary();
+}
+
+function updateSummary() {
+    const deviceCount = Object.keys(selectedDevices).length;
+    const npodCount = Object.keys(selectedNpods).length;
+    const total = Object.values(selectedDevices).reduce((a,b)=>a+b,0) +
+                  Object.values(selectedNpods).reduce((a,b)=>a+b,0);
+
+    document.getElementById('summaryDeviceCount').textContent = deviceCount;
+    document.getElementById('summaryNpodCount').textContent = npodCount;
+    document.getElementById('summaryTotalItems').textContent = total;
+
+    const storeName = document.getElementById('storeName').value.trim();
+    document.getElementById('submitBtn').disabled =
+        !(storeName && total > 0 && !hasSubmitted);
+}
+
+function submitOrder() {
+
+    if (isSubmitting || hasSubmitted) return;
+
+    const storeName = document.getElementById('storeName').value.trim();
+    if (!storeName) return alert("Enter store name first");
+
+    const formData = {
+        storeName: storeName,
+        deviceSelection: formatItems(selectedDevices),
+        npodSelection: formatItems(selectedNpods)
+    };
+
+    isSubmitting = true;
+    const btn = document.getElementById('submitBtn');
+    btn.innerHTML = '<span class="loading"></span>Submitting...';
+    btn.disabled = true;
 
     fetch("https://script.google.com/macros/s/AKfycbzZ5nJsFguVKW7xHMC5SGhlPK97iwdD0FYjc5e489e3hot5TtYfE0NgClYHo5nSmpmSRg/exec", {
         method: "POST",
         mode: "no-cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            storeName: formData.storeName,
-            deviceSelection: formatItems(formData.devices),
-            npodSelection: formatItems(formData.npods)
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
     })
     .then(() => {
-
-        // Reset submitting state
         isSubmitting = false;
         hasSubmitted = true;
-
-        // Reset button
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Already Submitted";
-        submitBtn.style.background = "linear-gradient(145deg, #95a5a6, #7f8c8d)";
-
-        // Show refresh button
-        document.getElementById("refreshBtn").style.display = "block";
-
-        // Disable inputs
-        document.querySelectorAll(".quantity-input").forEach(input => input.disabled = true);
-        document.querySelectorAll(".quantity-btn").forEach(btn => btn.disabled = true);
-        document.getElementById("storeName").disabled = true;
-
-        // Show success message
-        showMessage(`Success! Order for ${formData.storeName} submitted.`, "success");
-
-        localStorage.removeItem("storeSelectionData");
-
+        btn.textContent = "Already Submitted";
+        alert("Order submitted successfully.");
     })
-    .catch(error => {
+    .catch(err => {
         isSubmitting = false;
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        showMessage("Error submitting order.", "error");
-        console.error(error);
+        btn.textContent = "Submit Order";
+        btn.disabled = false;
+        alert("Submission failed.");
     });
 }
 
+function formatItems(obj) {
+    let arr = [];
+    for (let key in obj) arr.push(`${key} (${obj[key]})`);
+    return arr.join(", ");
+}
 
-        // Save data to localStorage
-        function saveData() {
-            if (hasSubmitted) return;
-            
-            const storeName = document.getElementById('storeName').value;
-            
-            const saveData = {
-                storeName: storeName,
-                selectedDevices: selectedDevices,
-                selectedNpods: selectedNpods,
-                deviceQuantities: {},
-                npodQuantities: {}
-            };
-            
-            // Save all quantity inputs
-            document.querySelectorAll('.quantity-input').forEach(input => {
-                const device = input.getAttribute('data-device');
-                const npod = input.getAttribute('data-npod');
-                const value = input.value;
-                
-                if (device) {
-                    saveData.deviceQuantities[device] = value;
-                }
-                
-                if (npod) {
-                    saveData.npodQuantities[npod] = value;
-                }
-            });
-            
-            localStorage.setItem('storeSelectionData', JSON.stringify(saveData));
-        }
-        
-        // Load saved data from localStorage
-        function loadSavedData() {
-            if (hasSubmitted) return;
-            
-            const savedData = localStorage.getItem('storeSelectionData');
-            
-            if (savedData) {
-                try {
-                    const data = JSON.parse(savedData);
-                    
-                    // Load store name
-                    if (data.storeName) {
-                        document.getElementById('storeName').value = data.storeName;
-                    }
-                    
-                    // Load device quantities
-                    if (data.deviceQuantities) {
-                        Object.entries(data.deviceQuantities).forEach(([device, quantity]) => {
-                            const deviceId = device.replace(/\s+/g, '-').toLowerCase();
-                            const quantityInput = document.getElementById(`qty-${deviceId}`);
-                            
-                            if (quantityInput && quantity) {
-                                quantityInput.value = quantity;
-                                const qtyNum = parseInt(quantity) || 0;
-                                if (qtyNum > 0) {
-                                    selectedDevices[device] = qtyNum;
-                                }
-                            }
-                        });
-                    }
-                    
-                    // Load NPOD quantities
-                    if (data.npodQuantities) {
-                        Object.entries(data.npodQuantities).forEach(([npod, quantity]) => {
-                            const npodId = npod.replace(/\s+/g, '-').replace(/[()]/g, '').toLowerCase();
-                            const quantityInput = document.getElementById(`npod-qty-${npodId}`);
-                            
-                            if (quantityInput && quantity) {
-                                quantityInput.value = quantity;
-                                const qtyNum = parseInt(quantity) || 0;
-                                if (qtyNum > 0) {
-                                    selectedNpods[npod] = qtyNum;
-                                }
-                            }
-                        });
-                    }
-                    
-                    // Update summary
-                    updateSummary();
-                    
-                } catch (error) {
-                    console.error('Error loading saved data:', error);
-                }
-            }
-        }
-        
-        // Initialize the app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+
 </body>
 </html>
