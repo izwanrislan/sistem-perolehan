@@ -781,6 +781,8 @@ function setupEventListeners() {
     });
 
     document.getElementById('submitBtn').addEventListener('click', submitOrder);
+     // ADD THIS LINE
+    document.getElementById('storeName').addEventListener('input', updateSummary);
 }
 
 function updateQuantity(name, qty, type) {
